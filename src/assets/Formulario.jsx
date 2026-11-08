@@ -1,6 +1,6 @@
 import { useState } from "react";
-
-function Formulario({ setUsuario }) {
+import Button from "react-bootstrap/Button";
+function Formulario({ setUsuario, setOn }) {
   const [formulario, setFormulario] = useState({
     nombre: "",
     intereses: {
@@ -40,76 +40,92 @@ function Formulario({ setUsuario }) {
     e.preventDefault();
 
     setUsuario(formulario);
+    setOn(false);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="nombre">Nombre:</label>
-      <input
-        name="nombre"
-        id="nombre"
-        value={formulario.nombre}
-        onChange={handleChange}
-      />
-
+    <form onSubmit={handleSubmit} className="Formulario">
+      <h2>Datos</h2>
+      <div className="Name">
+        <label htmlFor="nombre">Nombre:</label>
+        <input
+          name="nombre"
+          id="nombre"
+          placeholder="Nombre Ficticio"
+          value={formulario.nombre}
+          onChange={handleChange}
+        />
+      </div>
       <h3>Intereses</h3>
 
-      <label htmlFor="comida">Comida:</label>
-      <input
-        id="comida"
-        name="comida"
-        type="number"
-        min="0"
-        max="5"
-        value={formulario.intereses.comida}
-        onChange={handleIntereses}
-      />
+      <section>
+        <label htmlFor="comida">Comida:</label>
+        <input
+          id="comida"
+          name="comida"
+          type="number"
+          min="0"
+          max="5"
+          value={formulario.intereses.comida}
+          onChange={handleIntereses}
+        />
+      </section>
+      <section>
+        {" "}
+        <label htmlFor="deportes">Deportes:</label>
+        <input
+          id="deportes"
+          name="deportes"
+          type="number"
+          min="0"
+          max="5"
+          value={formulario.intereses.deportes}
+          onChange={handleIntereses}
+        />
+      </section>
+      <section>
+        <label htmlFor="peliculas">Películas:</label>
+        <input
+          id="peliculas"
+          name="peliculas"
+          type="number"
+          min="0"
+          max="5"
+          value={formulario.intereses.peliculas}
+          onChange={handleIntereses}
+        />
+      </section>
 
-      <label htmlFor="deportes">Deportes:</label>
-      <input
-        id="deportes"
-        name="deportes"
-        type="number"
-        min="0"
-        max="5"
-        value={formulario.intereses.deportes}
-        onChange={handleIntereses}
-      />
+      <section>
+        {" "}
+        <label htmlFor="videojuegos">Videojuegos:</label>
+        <input
+          id="videojuegos"
+          name="videojuegos"
+          type="number"
+          min="0"
+          max="5"
+          value={formulario.intereses.videojuegos}
+          onChange={handleIntereses}
+        />
+      </section>
 
-      <label htmlFor="peliculas">Películas:</label>
-      <input
-        id="peliculas"
-        name="peliculas"
-        type="number"
-        min="0"
-        max="5"
-        value={formulario.intereses.peliculas}
-        onChange={handleIntereses}
-      />
-
-      <label htmlFor="videojuegos">Videojuegos:</label>
-      <input
-        id="videojuegos"
-        name="videojuegos"
-        type="number"
-        min="0"
-        max="5"
-        value={formulario.intereses.videojuegos}
-        onChange={handleIntereses}
-      />
-
-      <label htmlFor="ropa">Ropa:</label>
-      <input
-        id="ropa"
-        name="ropa"
-        type="number"
-        min="0"
-        max="5"
-        value={formulario.intereses.ropa}
-        onChange={handleIntereses}
-      />
-
-      <button type="submit">Guardar usuario</button>
+      <section>
+        {" "}
+        <label htmlFor="ropa">Ropa:</label>
+        <input
+          id="ropa"
+          name="ropa"
+          type="number"
+          min="0"
+          max="5"
+          value={formulario.intereses.ropa}
+          onChange={handleIntereses}
+        />
+      </section>
+      <Button variant="outline-primary" type="submit" className="Save">
+        Guardar usuario
+      </Button>
     </form>
   );
 }

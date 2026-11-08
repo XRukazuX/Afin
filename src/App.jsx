@@ -1,10 +1,13 @@
 import "./App.css";
 import { useState } from "react";
 import Formulario from "./assets/Formulario";
+import { FaStarHalfAlt } from "react-icons/fa";
+
 import Card from "react-bootstrap/Card";
 function App() {
   const [recomendaciones, setRecomendaciones] = useState([]);
   const [categoriaElegida, setCategoriaElegida] = useState("");
+  const [on, setOn] = useState(true);
   const perfiles = [
     {
       id: 1,
@@ -350,32 +353,30 @@ function App() {
   console.log(usuario);
   return (
     <>
-      <div>
-        <Formulario setUsuario={setUsuario} />
-
-        <label htmlFor="categoria">Dar más importancia a:</label>
-        <select
-          id="categoria"
-          value={categoriaElegida}
-          onChange={(e) => setCategoriaElegida(e.target.value)}
-        >
-          <option value="">Todas por igual</option>
-          {categorias.map((categoria) => (
-            <option key={categoria} value={categoria}>
-              {categoria}
-            </option>
-          ))}
-        </select>
-
-        <button type="button" onClick={ejecutarRecomendaciones}>
-          Buscar recomendaciones
-        </button>
+      <div className={on ? "Show" : "Invisible"}>
+        <Formulario setUsuario={setUsuario} setOn={setOn} />
       </div>
+      <label htmlFor="categoria">Dar más importancia a:</label>
+      <select
+        id="categoria"
+        value={categoriaElegida}
+        onChange={(e) => setCategoriaElegida(e.target.value)}
+      >
+        <option value="">Todas por igual</option>
+        {categorias.map((categoria) => (
+          <option key={categoria} value={categoria}>
+            {categoria}
+          </option>
+        ))}
+      </select>
       <h2>
         {recomendaciones.length > 0
           ? "Tus perfiles afines"
           : "Perfiles disponibles"}
       </h2>
+      <button type="button" onClick={ejecutarRecomendaciones}>
+        Buscar recomendaciones
+      </button>
       <div className="Conteiner-Perfil">
         {(recomendaciones.length > 0 ? recomendaciones : perfiles).map(
           (Perfil) => (
