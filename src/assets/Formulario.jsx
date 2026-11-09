@@ -126,6 +126,13 @@ function Formulario({ setUsuario, setOn }) {
       <Button variant="outline-primary" type="submit" className="Save">
         Guardar usuario
       </Button>
+
+      <p>
+        *Aviso importante Este sitio forma parte de un proyecto académico cuyo
+        objetivo es demostrar la aplicación de conceptos de álgebra lineal en un
+        sistema básico de recomendaciones. No ingreses información personal real
+        ni datos sensibles.
+      </p>
     </form>
   );
 }
