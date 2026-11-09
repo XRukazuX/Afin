@@ -4,12 +4,13 @@ import Formulario from "./assets/Formulario";
 import { FaStarHalfAlt } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { FaUserGroup } from "react-icons/fa6";
-
+import Button from "react-bootstrap/Button";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { MdOutlineSportsSoccer } from "react-icons/md";
 import { MdSportsEsports } from "react-icons/md";
 import { MdLocalMovies } from "react-icons/md";
 import { GiClothes } from "react-icons/gi";
+import { GiFallingStar } from "react-icons/gi";
 
 import Card from "react-bootstrap/Card";
 function App() {
@@ -348,6 +349,16 @@ function App() {
     return suma;
   }
   function ejecutarRecomendaciones() {
+    // Comprobamos si el usuario tiene algún interés cargado.
+    const tieneIntereses = Object.values(usuario.intereses).some(
+      (valor) => valor > 0,
+    );
+
+    if (!tieneIntereses) {
+      setRecomendaciones([]);
+      alert("Primero debes cargar al menos un interés.");
+      return;
+    }
     // 1. Convertimos los intereses del usuario en un vector.
     let vectorUsuario = crearVector(usuario.intereses);
 
@@ -426,6 +437,26 @@ function App() {
           <FaUserGroup className="users" />
           <h2>Tus Preferencias</h2>
         </section>
+        <div className="MatrizAsociada">
+          <label className="importancia" htmlFor="categoria">
+            Dar más importancia a:
+          </label>
+          <select
+            id="categoria"
+            value={categoriaElegida}
+            onChange={(e) => {
+              setCategoriaElegida(e.target.value);
+              setRecomendaciones([]);
+            }}
+          >
+            <option value="">Todas por igual</option>
+            {categorias.map((categoria) => (
+              <option key={categoria} value={categoria}>
+                {categoria.charAt(0).toUpperCase() + categoria.slice(1)}
+              </option>
+            ))}
+          </select>
+        </div>
         <section className="categorias-ordenadas">
           {Object.entries(usuario.intereses).map(([clave, valor]) => {
             return (
@@ -440,64 +471,100 @@ function App() {
           })}
         </section>
       </div>
-      <div className="MatrizAsociada">
-        <label htmlFor="categoria">Dar más importancia a:</label>
-        <select
-          id="categoria"
-          value={categoriaElegida}
-          onChange={(e) => setCategoriaElegida(e.target.value)}
-        >
-          <option value="">Todas por igual</option>
-          {categorias.map((categoria) => (
-            <option key={categoria} value={categoria}>
-              {categoria.charAt(0).toUpperCase() + categoria.slice(1)}
-            </option>
-          ))}
-        </select>
-      </div>
-      <h2>
-        {recomendaciones.length > 0
-          ? "Tus perfiles afines"
-          : "Perfiles disponibles"}
-      </h2>
-      <button type="button" onClick={ejecutarRecomendaciones}>
-        Buscar recomendaciones
-      </button>
+
+      <section className="Preferencias-Titulo TusPreferencias">
+        <FaUserGroup className="users" />
+        <h2>Catalogo de actores</h2>
+      </section>
+      <p className="disponibles">{`${perfiles.length} Perfiles`}</p>
       <div className="Conteiner-Perfil">
-        {(recomendaciones.length > 0 ? recomendaciones : perfiles).map(
-          (Perfil) => (
-            <Card
-              key={Perfil.id}
-              style={{ width: "18rem" }}
-              className="Perfiles"
-            >
-              <Card.Img variant="top" src={Perfil.fotoPerfil} />
-              <Card.Body>
-                <Card.Title>{Perfil.nombre}</Card.Title>
-                <Card.Text></Card.Text>
-              </Card.Body>
+        {perfiles.map((Perfil) => (
+          <Card key={Perfil.id} style={{ width: "18rem" }} className="Perfiles">
+            <Card.Img variant="top" src={Perfil.fotoPerfil} />
+            <Card.Body>
+              <Card.Title>{Perfil.nombre}</Card.Title>
+            </Card.Body>
 
-              <div className="datos">
-                <h5>{Perfil.nombre}</h5>
+            <div className="datos">
+              <h5>{Perfil.nombre}</h5>
 
-                <p>Edad: {Perfil.edad}</p>
-                {typeof Perfil.puntuacion === "number" && (
-                  <p>Puntuación: {Perfil.puntuacion}</p>
-                )}
+              <p>Edad: {Perfil.edad}</p>
+              {typeof Perfil.puntuacion === "number" && (
+                <p>Puntuación: {Perfil.puntuacion}</p>
+              )}
 
-                <section>
-                  {Object.entries(Perfil.gustos).map(([categoria, gustos]) => (
-                    <div key={categoria}>
-                      <h5>{categoria}</h5>
-                      <p>{gustos.join(", ")}</p>
-                    </div>
-                  ))}
-                </section>
-              </div>
-            </Card>
-          ),
-        )}
+              <section>
+                {Object.entries(Perfil.gustos).map(([categoria, gustos]) => (
+                  <div key={categoria}>
+                    <h5>
+                      {categoria.charAt(0).toUpperCase() + categoria.slice(1)}
+                    </h5>
+                    <p>{gustos.join(", ")}</p>
+                  </div>
+                ))}
+              </section>
+            </div>
+          </Card>
+        ))}
       </div>
+      <div className="ContenedorGenerador">
+        <Button
+          type="button"
+          variant="outline-info"
+          className="Generador"
+          onClick={ejecutarRecomendaciones}
+        >
+          <GiFallingStar />
+          Buscar recomendaciones
+        </Button>
+      </div>
+      {recomendaciones.length > 0 ? (
+        <>
+          <section className="Preferencias">
+            <section className="Preferencias-Titulo">
+              <FaUserGroup className="users" />
+              <h2>Mis Recomendaciones</h2>
+            </section>
+            <div className="Conteiner-Perfil2">
+              {recomendaciones.map((Perfil) => (
+                <Card
+                  key={Perfil.id}
+                  style={{ width: "18rem" }}
+                  className="Perfiles"
+                >
+                  <Card.Img variant="top" src={Perfil.fotoPerfil} />
+                  <Card.Body>
+                    <Card.Title>{Perfil.nombre}</Card.Title>
+                  </Card.Body>
+
+                  <div className="datos">
+                    <h5>{Perfil.nombre}</h5>
+
+                    <p>Edad: {Perfil.edad}</p>
+                    {typeof Perfil.puntuacion === "number" && (
+                      <p>Puntuación: {Perfil.puntuacion}</p>
+                    )}
+
+                    <section>
+                      {Object.entries(Perfil.gustos).map(
+                        ([categoria, gustos]) => (
+                          <div key={categoria}>
+                            <h5>
+                              {categoria.charAt(0).toUpperCase() +
+                                categoria.slice(1)}
+                            </h5>
+                            <p>{gustos.join(", ")}</p>
+                          </div>
+                        ),
+                      )}
+                    </section>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </section>
+        </>
+      ) : null}
     </>
   );
 }
