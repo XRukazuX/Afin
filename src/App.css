@@ -104,3 +104,121 @@ input {
 label {
   width: 100px;
 }
+.DatosVisibles {
+  width: clamp(300px, 70%, 1000px);
+  min-height: 100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-family:
+    "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+    Arial, sans-serif;
+}
+.Titulo {
+  width: clamp(200px, 50%, 500px);
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+.Titulo h1 {
+  max-width: 400px;
+  height: 100%;
+  margin: 0;
+  text-align: start;
+}
+.star {
+  font-size: 3rem;
+  color: #6762cb;
+}
+
+.Editar {
+  height: 40px;
+  border: 2px solid #6762cb;
+  padding: 0.3rem;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
+  justify-content: space-around;
+  align-items: center;
+  color: #6762cb;
+}
+.Editar:hover {
+  background-color: #6762cb;
+  color: #f3f0fd;
+}
+
+.Editar p {
+  margin: 0;
+}
+.Uso {
+  width: clamp(360px, 70%, 1000px);
+  margin: 0 auto;
+  padding-bottom: 1rem;
+  text-align: center;
+  font-family:
+    "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+    Arial, sans-serif;
+}
+.Preferencias {
+  width: clamp(340px, 70%, 1000px);
+  min-height: 100px;
+  padding: 1rem;
+  margin: 0 auto;
+  border: 0.5px solid rgb(103, 98, 203, 0.3);
+  border-radius: 10px;
+  background: #f3f1fe;
+}
+.Preferencias-Titulo {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.Preferencias-Titulo h2 {
+  margin: 0;
+}
+.users {
+  color: #6762cb;
+  font-size: 1.5rem;
+}
+.Icons {
+  font-size: 2.5rem;
+  padding: 0.2rem;
+  border-radius: 50%;
+}
+.categorias-ordenadas {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+}
+.dates {
+  width: 140px;
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  gap: 0.5rem;
+}
+@media (width>800px) {
+  .dates {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+}
+.dates h6,
+.dates p {
+  margin: 0;
+}

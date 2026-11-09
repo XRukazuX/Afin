@@ -45,7 +45,7 @@ function Formulario({ setUsuario, setOn }) {
 
   return (
     <form onSubmit={handleSubmit} className="Formulario">
-      <h2>Datos</h2>
+      <h2>Datos del usuario</h2>
       <div className="Name">
         <label htmlFor="nombre">Nombre:</label>
         <input
@@ -57,7 +57,7 @@ function Formulario({ setUsuario, setOn }) {
         />
       </div>
       <h3>Intereses</h3>
-
+      <p>#Maximo valor permitido por interes 5</p>
       <section>
         <label htmlFor="comida">Comida:</label>
         <input

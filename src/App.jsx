@@ -2,6 +2,14 @@ import "./App.css";
 import { useState } from "react";
 import Formulario from "./assets/Formulario";
 import { FaStarHalfAlt } from "react-icons/fa";
+import { FaPencil } from "react-icons/fa6";
+import { FaUserGroup } from "react-icons/fa6";
+
+import { GiForkKnifeSpoon } from "react-icons/gi";
+import { MdOutlineSportsSoccer } from "react-icons/md";
+import { MdSportsEsports } from "react-icons/md";
+import { MdLocalMovies } from "react-icons/md";
+import { GiClothes } from "react-icons/gi";
 
 import Card from "react-bootstrap/Card";
 function App() {
@@ -269,7 +277,52 @@ function App() {
       ropa: 0,
     },
   });
+  function obtenerIcono(clave) {
+    switch (clave) {
+      case "comida":
+        return (
+          <GiForkKnifeSpoon
+            className="Icons"
+            style={{ color: "#ed7720", background: "#fedbb3" }}
+          />
+        );
 
+      case "deportes":
+        return (
+          <MdOutlineSportsSoccer
+            className="Icons"
+            style={{ color: "#4d916b", background: "#b9e5cd" }}
+          />
+        );
+
+      case "peliculas":
+        return (
+          <MdLocalMovies
+            className="Icons"
+            style={{ color: "#522fa4", background: "#dfccfd" }}
+          />
+        );
+
+      case "videojuegos":
+        return (
+          <MdSportsEsports
+            className="Icons"
+            style={{ color: "#265bca", background: "#a5cbfd" }}
+          />
+        );
+
+      case "ropa":
+        return (
+          <GiClothes
+            className="Icons"
+            style={{ color: "#da3f9a", background: "#fdcfe6" }}
+          />
+        );
+
+      default:
+        return null;
+    }
+  }
   const categorias = ["comida", "deportes", "peliculas", "videojuegos", "ropa"];
   function crearVector(intereses) {
     let vector = [];
@@ -356,19 +409,52 @@ function App() {
       <div className={on ? "Show" : "Invisible"}>
         <Formulario setUsuario={setUsuario} setOn={setOn} />
       </div>
-      <label htmlFor="categoria">Dar más importancia a:</label>
-      <select
-        id="categoria"
-        value={categoriaElegida}
-        onChange={(e) => setCategoriaElegida(e.target.value)}
-      >
-        <option value="">Todas por igual</option>
-        {categorias.map((categoria) => (
-          <option key={categoria} value={categoria}>
-            {categoria}
-          </option>
-        ))}
-      </select>
+      <div className="DatosVisibles">
+        <section className="Titulo">
+          <FaStarHalfAlt className="star" />
+
+          <h1>Match de Intereses</h1>
+        </section>
+        <section className="Editar" onClick={() => setOn(true)}>
+          <FaPencil />
+          <p>Editar</p>
+        </section>
+      </div>
+      <p className="Uso">Descubri que actor comparte mas gustos con vos</p>
+      <div className="Preferencias">
+        <section className="Preferencias-Titulo">
+          <FaUserGroup className="users" />
+          <h2>Tus Preferencias</h2>
+        </section>
+        <section className="categorias-ordenadas">
+          {Object.entries(usuario.intereses).map(([clave, valor]) => {
+            return (
+              <section key={clave} className="dates">
+                {obtenerIcono(clave)}
+                <section>
+                  <h6>{clave.charAt(0).toUpperCase() + clave.slice(1)}</h6>
+                  <p>{valor}/5</p>
+                </section>
+              </section>
+            );
+          })}
+        </section>
+      </div>
+      <div className="MatrizAsociada">
+        <label htmlFor="categoria">Dar más importancia a:</label>
+        <select
+          id="categoria"
+          value={categoriaElegida}
+          onChange={(e) => setCategoriaElegida(e.target.value)}
+        >
+          <option value="">Todas por igual</option>
+          {categorias.map((categoria) => (
+            <option key={categoria} value={categoria}>
+              {categoria.charAt(0).toUpperCase() + categoria.slice(1)}
+            </option>
+          ))}
+        </select>
+      </div>
       <h2>
         {recomendaciones.length > 0
           ? "Tus perfiles afines"
